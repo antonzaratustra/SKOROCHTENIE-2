@@ -91,6 +91,15 @@ body {
     margin: 0 auto;
 }
 
+/* --- АЛЬБОМ НАЗВАНИЕ --- */
+.album-title {
+    color: white;
+    font-size: 2.5rem;
+    text-align: center;
+    margin: 20px 0 30px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
 /* --- ПЛЕЕР (КАСТОМНЫЙ) --- */
 .player-container {
     background: #0a0a0a;
@@ -99,6 +108,11 @@ body {
     margin-bottom: 30px;
     position: relative;
     box-shadow: 0 0 30px rgba(0,0,0,0.8);
+    max-width: 600px;
+    width: 100%;
+    aspect-ratio: 1/1;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Красная рамка (свечение) */
@@ -114,8 +128,8 @@ body {
 .image-wrapper {
     position: relative;
     width: 100%;
-    max-width: 400px;
-    margin: 0 auto 20px;
+    height: 100%;
+    margin: 0;
     aspect-ratio: 1/1;
 }
 
