@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-text="SKOROCHTENIE - Альбом">SKOROCHTENIE - Альбом</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="snowflakes" aria-hidden="true"></div>
+    <div class="glitch-container">
+        <div class="glitch" aria-hidden="true"></div>
+    </div>
+    
+    <div class="container">
+        <nav class="track-menu">
+            <ul id="track-list">
+                <!-- Треки будут добавлены через JavaScript -->
+            </ul>
+        </nav>
+        
+        <main class="track-content">
+            <div class="player-container">
+                <audio id="track-player" controls>
+                    Ваш браузер не поддерживает аудио.
+                </audio>
+            </div>
+            
+            <div class="track-image">
+                <img id="track-img" src="" alt="Обложка трека">
+            </div>
+            
+            <div class="track-texts">
+                <details class="song-text">
+                    <summary data-text="Текст песни">Текст песни</summary>
+                    <div id="song-lyrics">Выберите трек для отображения текста</div>
+                </details>
+                
+                <details class="decoding-text">
+                    <summary data-text="Декодинг текста">Декодинг текста</summary>
+                    <div id="song-decoding">Выберите трек для отображения декодинга</div>
+                </details>
+            </div>
+        </main>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="js/tracks.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

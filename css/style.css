@@ -1,0 +1,305 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Proxima Nova', 'Helvetica Neue', Arial, sans-serif;
+    background-color: #000;
+    color: #fff;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Эффект снега */
+.snowflakes {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.snowflake {
+    position: absolute;
+    background-color: #fff;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(100vh);
+    }
+}
+
+/* Эффект глитча */
+.glitch-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+    overflow: hidden;
+}
+
+.glitch {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(255, 0, 0, 0.1),
+        rgba(255, 0, 0, 0.1) 1px,
+        transparent 1px,
+        transparent 2px
+    );
+    animation: glitch-anim 5s infinite;
+}
+
+@keyframes glitch-anim {
+    0% {
+        opacity: 0.1;
+        transform: translateX(0);
+    }
+    20% {
+        opacity: 0.2;
+        transform: translateX(-2px);
+    }
+    40% {
+        opacity: 0.1;
+        transform: translateX(0);
+    }
+    60% {
+        opacity: 0.3;
+        transform: translateX(2px);
+    }
+    80% {
+        opacity: 0.1;
+        transform: translateX(0);
+    }
+    100% {
+        opacity: 0.1;
+        transform: translateX(0);
+    }
+}
+
+/* Дополнительные глитч-эффекты */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(255,0,0,0.06), transparent 1px),
+                linear-gradient(90deg, rgba(255,0,0,0.02), transparent 1px);
+    background-size: 100px 100px;
+    pointer-events: none;
+    z-index: 2;
+    animation: noise 0.2s infinite;
+}
+
+@keyframes noise {
+    0% { transform: translate(0); }
+    10% { transform: translate(-5%, 5%); }
+    20% { transform: translate(-10%, 15%); }
+    30% { transform: translate(5%, 10%); }
+    40% { transform: translate(0, 15%); }
+    50% { transform: translate(-10%, 10%); }
+    60% { transform: translate(5%, 5%); }
+    70% { transform: translate(-5%, 15%); }
+    80% { transform: translate(-10%, 10%); }
+    90% { transform: translate(5%, 5%); }
+    100% { transform: translate(0); }
+}
+
+/* Глитч-эффект для текста */
+h1, h2, h3, .track-menu li {
+    position: relative;
+}
+
+h1::before, h2::before, h3::before, .track-menu li::before {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: #ff0000;
+    opacity: 0.5;
+    animation: glitch-text 5s infinite;
+    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+}
+
+h1::after, h2::after, h3::after, .track-menu li::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: #00f7ff;
+    opacity: 0.3;
+    animation: glitch-text 3s infinite reverse;
+    clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
+}
+
+@keyframes glitch-text {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    100% { transform: translate(0); }
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+    position: relative;
+    z-index: 3;
+}
+
+/* Меню треков */
+.track-menu {
+    width: 250px;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    border-right: 1px solid #ff0000;
+    height: 100vh;
+    position: fixed;
+    overflow-y: auto;
+}
+
+.track-menu ul {
+    list-style: none;
+}
+
+.track-menu li {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #333;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.track-menu li:hover {
+    background-color: #333;
+    border-color: #ff0000;
+}
+
+.track-menu li.active {
+    background-color: #ff0000;
+    color: #000;
+    border-color: #ff0000;
+}
+
+/* Контент трека */
+.track-content {
+    flex: 1;
+    margin-left: 250px;
+    padding: 20px;
+    color: #fff;
+}
+
+.player-container {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#track-player {
+    width: 100%;
+    max-width: 600px;
+}
+
+.track-image {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.track-image img {
+    max-width: 300px;
+    height: auto;
+    border: 1px solid #fff;
+}
+
+.track-texts {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.song-text, .decoding-text {
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid #333;
+    margin-bottom: 20px;
+}
+
+summary {
+    color: #ff0000;
+    cursor: pointer;
+    padding: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: rgba(50, 50, 50, 0.3);
+    border-left: 3px solid #ff0000;
+    list-style: none;
+    position: relative;
+}
+
+summary::before {
+    content: '▶';
+    display: inline-block;
+    margin-right: 10px;
+    transition: transform 0.3s ease;
+}
+
+details[open] summary::before {
+    transform: rotate(90deg);
+}
+
+details[open] summary {
+    border-bottom: 1px solid #333;
+}
+
+#song-lyrics, #song-decoding {
+    padding: 15px;
+    padding-left: 30px;
+    line-height: 1.4;
+    white-space: pre-line;
+    background-color: rgba(20, 20, 20, 0.7);
+    font-size: 14px;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+    
+    .track-menu {
+        width: 100%;
+        height: auto;
+        position: static;
+        border-right: none;
+        border-bottom: 1px solid #ff0000;
+    }
+    
+    .track-content {
+        margin-left: 0;
+    }
+    
+    .track-texts {
+        flex-direction: column;
+    }
+}
