@@ -7,10 +7,54 @@
 
 body {
     font-family: 'Share Tech Mono', 'Courier New', monospace;
-    background-color: #050505;
+    background: linear-gradient(45deg, #220000, #000000, #330000);
     color: #e0e0e0;
     overflow-x: hidden;
     min-height: 100vh;
+    
+    /* Анимированный фон как будто идут бои */
+    background-size: 400% 400%;
+    animation: battleBackground 10s ease infinite;
+    position: relative;
+}
+
+/* Эффект вспышек как будто идут бои */
+.battle-flashes {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.15;
+    background: radial-gradient(circle at center, rgba(255, 0, 0, 0.5), transparent 70%);
+    animation: battleFlashes 4s infinite;
+}
+
+@keyframes battleFlashes {
+    0%, 100% { opacity: 0.05; background: radial-gradient(circle at center, rgba(255, 0, 0, 0.2), transparent 70%); }
+    50% { opacity: 0.2; background: radial-gradient(circle at center, rgba(255, 0, 0, 0.6), transparent 70%); }
+    70% { opacity: 0.15; background: radial-gradient(circle at center, rgba(255, 100, 0, 0.4), transparent 70%); }
+}
+
+/* Анимация фона как будто идут бои */
+@keyframes battleBackground {
+    0% {
+        background-position: 0% 50%;
+    }
+    25% {
+        background-position: 50% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    75% {
+        background-position: 50% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 /* --- ФОНОВЫЕ ЭФФЕКТЫ --- */
@@ -19,10 +63,24 @@ body {
     top: 0; left: 0; width: 100%; height: 100%;
     pointer-events: none;
     z-index: 1;
-    background: radial-gradient(circle, transparent 90%, #000 100%),
-                url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Ccircle cx="10" cy="10" r="1" fill="white" opacity="0.3"/%3E%3C/svg%3E');
-    animation: noise-anim 0.5s infinite linear;
     opacity: 0.3;
+}
+
+.snowflake {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: snowfall linear infinite;
+}
+
+@keyframes snowfall {
+    from {
+        transform: translateY(-10vh) rotate(0deg);
+    }
+    to {
+        transform: translateY(100vh) rotate(360deg);
+    }
 }
 
 .glitch-container {
