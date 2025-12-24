@@ -457,7 +457,7 @@ details[open] summary::after {
 }
 
 #song-lyrics, #song-decoding {
-    padding: 25px;
+    padding: 25px 25px 25px 40px;
     line-height: 1.6;
     color: #ccc;
     font-size: 0.95rem;
