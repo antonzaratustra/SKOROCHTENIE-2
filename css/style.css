@@ -420,6 +420,9 @@ summary {
     justify-content: space-between;
     align-items: center;
     border-left: 3px solid transparent;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 summary:hover {
@@ -448,6 +451,20 @@ details[open] summary::after {
     color: #ccc;
     font-size: 0.95rem;
     white-space: pre-wrap;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    text-align: left;
+}
+
+#song-lyrics, #song-decoding {
+    padding: 25px;
+    line-height: 1.6;
+    color: #ccc;
+    font-size: 0.95rem;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    text-align: left;
 }
 
 /* Стили для Markdown заголовков внутри текста */
