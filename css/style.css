@@ -1,3 +1,4 @@
+/* --- СБРОС И ШРИФТЫ --- */
 * {
     margin: 0;
     padding: 0;
@@ -5,301 +6,320 @@
 }
 
 body {
-    font-family: 'Proxima Nova', 'Helvetica Neue', Arial, sans-serif;
-    background-color: #000;
-    color: #fff;
+    font-family: 'Share Tech Mono', 'Courier New', monospace;
+    background-color: #050505;
+    color: #e0e0e0;
     overflow-x: hidden;
-    position: relative;
+    min-height: 100vh;
 }
 
-/* Эффект снега */
+/* --- ФОНОВЫЕ ЭФФЕКТЫ --- */
 .snowflakes {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 0; left: 0; width: 100%; height: 100%;
     pointer-events: none;
     z-index: 1;
+    background: radial-gradient(circle, transparent 90%, #000 100%),
+                url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Ccircle cx="10" cy="10" r="1" fill="white" opacity="0.3"/%3E%3C/svg%3E');
+    animation: noise-anim 0.5s infinite linear;
+    opacity: 0.3;
 }
 
-.snowflake {
-    position: absolute;
-    background-color: #fff;
-    border-radius: 50%;
-    opacity: 0.8;
-    animation: fall linear infinite;
-}
-
-@keyframes fall {
-    to {
-        transform: translateY(100vh);
-    }
-}
-
-/* Эффект глитча */
 .glitch-container {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 0; left: 0; width: 100%; height: 100%;
     pointer-events: none;
     z-index: 2;
-    overflow: hidden;
+    background: repeating-linear-gradient(0deg, rgba(0,0,0,0.1), rgba(0,0,0,0.1) 1px, transparent 1px, transparent 2px);
+    background-size: 100% 4px;
 }
 
-.glitch {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: repeating-linear-gradient(
-        0deg,
-        rgba(255, 0, 0, 0.1),
-        rgba(255, 0, 0, 0.1) 1px,
-        transparent 1px,
-        transparent 2px
-    );
-    animation: glitch-anim 5s infinite;
-}
-
-@keyframes glitch-anim {
-    0% {
-        opacity: 0.1;
-        transform: translateX(0);
-    }
-    20% {
-        opacity: 0.2;
-        transform: translateX(-2px);
-    }
-    40% {
-        opacity: 0.1;
-        transform: translateX(0);
-    }
-    60% {
-        opacity: 0.3;
-        transform: translateX(2px);
-    }
-    80% {
-        opacity: 0.1;
-        transform: translateX(0);
-    }
-    100% {
-        opacity: 0.1;
-        transform: translateX(0);
-    }
-}
-
-/* Дополнительные глитч-эффекты */
-body::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(rgba(255,0,0,0.06), transparent 1px),
-                linear-gradient(90deg, rgba(255,0,0,0.02), transparent 1px);
-    background-size: 100px 100px;
-    pointer-events: none;
-    z-index: 2;
-    animation: noise 0.2s infinite;
-}
-
-@keyframes noise {
-    0% { transform: translate(0); }
-    10% { transform: translate(-5%, 5%); }
-    20% { transform: translate(-10%, 15%); }
-    30% { transform: translate(5%, 10%); }
-    40% { transform: translate(0, 15%); }
-    50% { transform: translate(-10%, 10%); }
-    60% { transform: translate(5%, 5%); }
-    70% { transform: translate(-5%, 15%); }
-    80% { transform: translate(-10%, 10%); }
-    90% { transform: translate(5%, 5%); }
-    100% { transform: translate(0); }
-}
-
-/* Глитч-эффект для текста */
-h1, h2, h3, .track-menu li {
-    position: relative;
-}
-
-h1::before, h2::before, h3::before, .track-menu li::before {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    color: #ff0000;
-    opacity: 0.5;
-    animation: glitch-text 5s infinite;
-    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
-}
-
-h1::after, h2::after, h3::after, .track-menu li::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    color: #00f7ff;
-    opacity: 0.3;
-    animation: glitch-text 3s infinite reverse;
-    clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
-}
-
-@keyframes glitch-text {
-    0% { transform: translate(0); }
-    20% { transform: translate(-2px, 2px); }
-    40% { transform: translate(-2px, -2px); }
-    60% { transform: translate(2px, 2px); }
-    80% { transform: translate(2px, -2px); }
-    100% { transform: translate(0); }
-}
-
+/* --- ЛЕЙАУТ --- */
 .container {
     display: flex;
     min-height: 100vh;
     position: relative;
-    z-index: 3;
+    z-index: 10;
 }
 
-/* Меню треков */
+/* Меню */
 .track-menu {
-    width: 250px;
-    background-color: rgba(0, 0, 0, 0.8);
-    padding: 20px;
-    border-right: 1px solid #ff0000;
-    height: 100vh;
-    position: fixed;
-    overflow-y: auto;
+    width: 300px;
+    background: rgba(10, 10, 10, 0.95);
+    border-right: 1px solid #333;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
 }
 
-.track-menu ul {
-    list-style: none;
+.track-menu h2 {
+    padding: 0 20px 20px;
+    color: #ff0000;
+    border-bottom: 1px solid #333;
+    margin-bottom: 10px;
 }
+
+.track-menu ul { list-style: none; }
 
 .track-menu li {
-    margin-bottom: 10px;
-    padding: 10px;
-    border: 1px solid #333;
+    padding: 15px 20px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    border-left: 3px solid transparent;
+    transition: all 0.2s;
+    color: #888;
+    text-transform: uppercase;
 }
 
 .track-menu li:hover {
-    background-color: #333;
-    border-color: #ff0000;
+    background: rgba(255, 0, 0, 0.1);
+    color: #fff;
+    padding-left: 25px;
 }
 
 .track-menu li.active {
-    background-color: #ff0000;
-    color: #000;
-    border-color: #ff0000;
+    background: linear-gradient(90deg, rgba(255,0,0,0.2), transparent);
+    color: #ff0000;
+    border-left-color: #ff0000;
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
 }
 
-/* Контент трека */
+/* Контент */
 .track-content {
     flex: 1;
-    margin-left: 250px;
-    padding: 20px;
-    color: #fff;
+    padding: 30px;
+    max-width: 900px;
+    margin: 0 auto;
 }
 
+/* --- ПЛЕЕР (КАСТОМНЫЙ) --- */
 .player-container {
-    margin-bottom: 20px;
-    text-align: center;
+    background: #0a0a0a;
+    border: 1px solid #333;
+    padding: 20px;
+    margin-bottom: 30px;
+    position: relative;
+    box-shadow: 0 0 30px rgba(0,0,0,0.8);
 }
 
-#track-player {
+/* Красная рамка (свечение) */
+.player-container::before {
+    content: '';
+    position: absolute;
+    top: -1px; left: -1px; right: -1px; bottom: -1px;
+    background: linear-gradient(45deg, #ff0000, transparent, #ff0000);
+    z-index: -1;
+    opacity: 0.2;
+}
+
+.img-wrapper {
     width: 100%;
-    max-width: 600px;
+    max-width: 400px;
+    margin: 0 auto 20px;
+    position: relative;
+    border: 1px solid #333;
 }
 
-.track-image {
-    text-align: center;
-    margin: 20px 0;
-}
-
-.track-image img {
-    max-width: 300px;
+.player-image {
+    width: 100%;
     height: auto;
-    border: 1px solid #fff;
+    display: block;
+    filter: grayscale(80%) contrast(1.2);
+    transition: filter 0.3s;
 }
 
+.player-container:hover .player-image {
+    filter: grayscale(0%) contrast(1);
+}
+
+/* Текстовая информация в плеере */
+.track-info {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.track-info h3 {
+    color: #ff0000;
+    font-size: 1.5rem;
+    text-shadow: 0 0 5px rgba(255,0,0,0.5);
+}
+
+/* Контролы */
+.custom-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.buttons-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 10px;
+}
+
+.play-btn {
+    background: transparent;
+    border: 2px solid #ff0000;
+    color: #ff0000;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
+}
+
+.play-btn:hover {
+    background: #ff0000;
+    color: #000;
+    box-shadow: 0 0 25px rgba(255, 0, 0, 0.6);
+}
+
+/* --- СТИЛИ ПОЛЗУНКОВ (RANGE INPUT) --- */
+.timeline-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: #ff0000;
+    font-size: 0.9rem;
+}
+
+.volume-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 150px;
+    font-size: 0.8rem;
+    color: #888;
+}
+
+/* Общий стиль для input range */
+.styled-slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 6px;
+    background: transparent; /* Фон прозрачный, чтобы видеть градиент */
+    cursor: pointer;
+    border-radius: 3px;
+    outline: none;
+    
+    /* Магия заполнения: Красный цвет слева, Серый (333) справа */
+    background-image: linear-gradient(#ff0000, #ff0000);
+    background-size: 0% 100%; /* Меняется через JS */
+    background-repeat: no-repeat;
+    background-color: #333; /* Цвет незаполненной части */
+}
+
+/* Webkit (Chrome/Safari) Thumb */
+.styled-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: #ff0000;
+    box-shadow: 0 0 10px #ff0000;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+.styled-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.3);
+    background: #fff;
+}
+
+/* Firefox Thumb */
+.styled-slider::-moz-range-thumb {
+    height: 16px;
+    width: 16px;
+    border: none;
+    border-radius: 50%;
+    background: #ff0000;
+    box-shadow: 0 0 10px #ff0000;
+    cursor: pointer;
+}
+
+/* --- ТЕКСТЫ И АККОРДЕОН --- */
 .track-texts {
     display: flex;
     flex-direction: column;
-    gap: 30px;
-    margin-top: 30px;
+    gap: 20px;
 }
 
-.song-text, .decoding-text {
-    background-color: rgba(0, 0, 0, 0.5);
+details {
+    background: rgba(20, 20, 20, 0.6);
     border: 1px solid #333;
-    margin-bottom: 20px;
+    transition: all 0.3s;
+}
+
+details[open] {
+    border-color: #ff0000;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.1);
 }
 
 summary {
-    color: #ff0000;
-    cursor: pointer;
     padding: 15px;
+    cursor: pointer;
     font-weight: bold;
-    text-transform: uppercase;
-    background-color: rgba(50, 50, 50, 0.3);
-    border-left: 3px solid #ff0000;
+    color: #fff;
     list-style: none;
-    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-left: 3px solid transparent;
 }
 
-summary::before {
-    content: '▶';
-    display: inline-block;
-    margin-right: 10px;
-    transition: transform 0.3s ease;
+summary:hover {
+    background: rgba(255,255,255,0.05);
 }
 
-details[open] summary::before {
-    transform: rotate(90deg);
+summary::after {
+    content: '+';
+    color: #ff0000;
+    font-size: 1.2rem;
 }
 
 details[open] summary {
     border-bottom: 1px solid #333;
+    color: #ff0000;
+    border-left: 3px solid #ff0000;
 }
 
-#song-lyrics, #song-decoding {
-    padding: 15px;
-    padding-left: 30px;
-    line-height: 1.4;
-    white-space: pre-line;
-    background-color: rgba(20, 20, 20, 0.7);
-    font-size: 14px;
+details[open] summary::after {
+    content: '-';
 }
 
-/* Адаптивность */
+.markdown-content {
+    padding: 20px;
+    line-height: 1.6;
+    color: #ccc;
+    font-size: 0.95rem;
+}
+
+/* Стили для Markdown заголовков внутри текста */
+.markdown-content h1, .markdown-content h2, .markdown-content h3 {
+    color: #ff0000;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border-bottom: 1px dashed #333;
+    display: inline-block;
+}
+
+.markdown-content blockquote {
+    border-left: 3px solid #ff0000;
+    padding-left: 15px;
+    margin: 15px 0;
+    color: #888;
+    font-style: italic;
+}
+
+/* --- АДАПТИВ --- */
 @media (max-width: 768px) {
-    .container {
-        flex-direction: column;
-    }
-    
-    .track-menu {
-        width: 100%;
-        height: auto;
-        position: static;
-        border-right: none;
-        border-bottom: 1px solid #ff0000;
-    }
-    
-    .track-content {
-        margin-left: 0;
-    }
-    
-    .track-texts {
-        flex-direction: column;
-    }
+    .container { flex-direction: column; }
+    .track-menu { width: 100%; height: auto; max-height: 250px; overflow-y: auto; }
+    .track-content { padding: 15px; }
 }
