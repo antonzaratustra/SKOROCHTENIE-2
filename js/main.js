@@ -2,6 +2,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     initializeSnowEffect();
     initializeMuzzleFlashes();
+    initializeTVStatic();
     initializeTrackMenu();
     initializeCustomPlayer();
     loadTrack(tracks[2]); // Загрузка третьего трека (Выше этого) по умолчанию
@@ -256,6 +257,47 @@ function initializeMuzzleFlashes() {
     }, 200); // Создаем вспышки каждые 200мс
 }
 
+// Функция инициализации эффекта телевизионного белого шума
+function initializeTVStatic() {
+    const staticContainer = document.getElementById('tv-static');
+    
+    // Создаем canvas для генерации шума
+    const canvas = document.createElement('canvas');
+    const tam = 400; // Размер canvas
+    canvas.width = tam;
+    canvas.height = tam;
+    
+    const ctx = canvas.getContext('2d');
+    
+    // Функция для генерации шума
+    function generateStatic() {
+        // Очищаем canvas
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+        ctx.fillRect(0, 0, tam, tam);
+        
+        // Рисуем случайные пиксели
+        for (let y = 0; y < tam; y += 1) {
+            for (let x = 0; x < tam; x += 1) {
+                // Случайно выбираем цвет пикселя (черный или белый с низкой прозрачностью)
+                const alpha = Math.random() < 0.3 ? 0.15 : 0.05; // Меньше шансов на темные пиксели
+                ctx.fillStyle = `rgba(${Math.random() < 0.5 ? 0 : 255}, ${Math.random() < 0.5 ? 0 : 255}, ${Math.random() < 0.5 ? 0 : 255}, ${alpha})`;
+                ctx.fillRect(x, y, 1, 1);
+            }
+        }
+        
+        // Устанавливаем canvas как фон контейнера
+        staticContainer.style.backgroundImage = `url(${canvas.toDataURL()})`;
+        staticContainer.style.backgroundRepeat = 'repeat';
+        
+        // Смещаем фон для создания эффекта движения
+        staticContainer.style.backgroundPosition = `${Math.floor(Math.random() * tam)}px ${Math.floor(Math.random() * tam)}px`;
+    }
+    
+    // Генерируем шум с интервалом
+    generateStatic();
+    setInterval(generateStatic, 50); // Обновляем каждые 50мс
+}
+
 // Функция инициализации меню треков
 function initializeTrackMenu() {
     const trackList = document.getElementById('track-list');
@@ -321,4 +363,8 @@ function loadTrack(track) {
     setTimeout(() => {
         resetProgressBar();
     }, 100);
+    
+    // Сбрасываем состояние кнопки воспроизведения к "воспроизвести" (не "пауза")
+    const playBtn = document.getElementById('play-btn');
+    playBtn.classList.remove('playing');
 }
