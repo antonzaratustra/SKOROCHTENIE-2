@@ -1,6 +1,7 @@
 // Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', function() {
     initializeSnowEffect();
+    initializeMuzzleFlashes();
     initializeTrackMenu();
     initializeCustomPlayer();
     loadTrack(tracks[2]); // Загрузка третьего трека (Выше этого) по умолчанию
@@ -215,6 +216,44 @@ function initializeSnowEffect() {
         
         snowContainer.appendChild(snowflake);
     }
+}
+
+// Функция инициализации эффекта вспышек от стрельбы
+function initializeMuzzleFlashes() {
+    const muzzleFlashContainer = document.querySelector('.muzzle-flashes');
+    
+    // Создаем случайные вспышки от стрельбы
+    setInterval(() => {
+        // Создаем случайное количество вспышек (1-5) за один раз
+        const flashCount = Math.floor(Math.random() * 5) + 1;
+        
+        for (let i = 0; i < flashCount; i++) {
+            // Случайная позиция
+            const posX = Math.random() * 100;
+            const posY = Math.random() * 100;
+            
+            // Создаем элемент вспышки
+            const flash = document.createElement('div');
+            flash.classList.add('muzzle-flash');
+            flash.style.left = `${posX}%`;
+            flash.style.top = `${posY}%`;
+            
+            // Случайный размер вспышки
+            const size = Math.random() * 3 + 2;
+            flash.style.width = `${size}px`;
+            flash.style.height = `${size}px`;
+            
+            // Добавляем вспышку
+            muzzleFlashContainer.appendChild(flash);
+            
+            // Удаляем вспышку после окончания анимации
+            setTimeout(() => {
+                if (flash.parentNode) {
+                    flash.parentNode.removeChild(flash);
+                }
+            }, 100);
+        }
+    }, 200); // Создаем вспышки каждые 200мс
 }
 
 // Функция инициализации меню треков
