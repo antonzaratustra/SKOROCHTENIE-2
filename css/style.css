@@ -443,10 +443,11 @@ details[open] summary::after {
 }
 
 .markdown-content {
-    padding: 20px;
+    padding: 25px;
     line-height: 1.6;
     color: #ccc;
     font-size: 0.95rem;
+    white-space: pre-wrap;
 }
 
 /* Стили для Markdown заголовков внутри текста */

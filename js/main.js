@@ -115,6 +115,20 @@ function initializeCustomPlayer() {
     }
 }
 
+// Функция сброса прогресс-бара
+function resetProgressBar() {
+    const progressBar = document.getElementById('progress-bar');
+    const currentTimeEl = document.getElementById('current-time');
+    
+    if (progressBar) {
+        progressBar.value = 0;
+    }
+    
+    if (currentTimeEl) {
+        currentTimeEl.textContent = '0:00';
+    }
+}
+
 // Функция инициализации эффекта снега
 function initializeSnowEffect() {
     const snowContainer = document.querySelector('.snowflakes');
@@ -173,6 +187,9 @@ function loadTrack(track) {
     audioPlayer.src = track.audioSrc;
     audioPlayer.load();
     
+    // Сбрасываем позицию аудио до 0
+    audioPlayer.currentTime = 0;
+    
     // Обновляем изображение
     const trackImg = document.getElementById('track-img');
     trackImg.src = track.imageSrc;
@@ -197,4 +214,9 @@ function loadTrack(track) {
             item.classList.add('active');
         }
     });
+    
+    // Сбрасываем прогресс-бар
+    setTimeout(() => {
+        resetProgressBar();
+    }, 100);
 }
