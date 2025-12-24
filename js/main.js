@@ -130,32 +130,51 @@ function initializeCustomPlayer() {
     
     // Функция воспроизведения следующего трека
     function playNextTrack() {
-        // Находим индекс текущего трека в оригинальном массиве
+        // Порядок треков в меню: 1) выше этого (track3), 2) поющая могилка (track1), 3) недоверия раб (track2), 4) черный челик (track4)
+        const menuOrder = ['track3', 'track1', 'track2', 'track4'];
         const currentTrackId = getCurrentTrackId();
-        // Используем оригинальные индексы, а не отсортированные
-        const originalTrackIndex = tracks.findIndex(track => track.id === currentTrackId);
-        const nextIndex = (originalTrackIndex + 1) % tracks.length;
-        loadTrack(tracks[nextIndex]);
-        setTimeout(() => audioPlayer.play(), 100); // Небольшая задержка для надежности
+        const currentIndex = menuOrder.indexOf(currentTrackId);
+        
+        if (currentIndex !== -1) {
+            const nextIndex = (currentIndex + 1) % menuOrder.length;
+            const nextTrackId = menuOrder[nextIndex];
+            const nextTrack = tracks.find(track => track.id === nextTrackId);
+            
+            if (nextTrack) {
+                loadTrack(nextTrack);
+                setTimeout(() => audioPlayer.play(), 100);
+            }
+        }
     }
     
     // Функция воспроизведения предыдущего трека
     function playPrevTrack() {
+        // Порядок треков в меню: 1) выше этого (track3), 2) поющая могилка (track1), 3) недоверия раб (track2), 4) черный челик (track4)
+        const menuOrder = ['track3', 'track1', 'track2', 'track4'];
         const currentTrackId = getCurrentTrackId();
-        // Используем оригинальные индексы, а не отсортированные
-        const originalTrackIndex = tracks.findIndex(track => track.id === currentTrackId);
-        const prevIndex = (originalTrackIndex - 1 + tracks.length) % tracks.length;
-        loadTrack(tracks[prevIndex]);
-        setTimeout(() => audioPlayer.play(), 100); // Небольшая задержка для надежности
+        const currentIndex = menuOrder.indexOf(currentTrackId);
+        
+        if (currentIndex !== -1) {
+            const prevIndex = (currentIndex - 1 + menuOrder.length) % menuOrder.length;
+            const prevTrackId = menuOrder[prevIndex];
+            const prevTrack = tracks.find(track => track.id === prevTrackId);
+            
+            if (prevTrack) {
+                loadTrack(prevTrack);
+                setTimeout(() => audioPlayer.play(), 100);
+            }
+        }
     }
     
     // Функция получения текущего ID трека
     function getCurrentTrackId() {
         // Получаем полный путь и извлекаем ID трека из имени файла
         const src = audioPlayer.src;
-        const fileName = src.split('/').pop();
+        // Извлекаем имя файла из пути, поддерживая разные форматы URL
+        const pathParts = src.split('/');
+        const fileName = pathParts[pathParts.length - 1];
         // Извлекаем ID из имени файла, например, 'track1.mp3' -> 'track1'
-        return fileName.replace('.mp3', '');
+        return fileName.replace('.mp3', '').split('?')[0]; // Убираем возможные параметры
     }
 }
 
