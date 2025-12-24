@@ -21,8 +21,43 @@
         
         <main class="track-content">
             <div class="player-container">
-                <img id="track-img" src="" alt="Обложка трека" class="player-image">
-                <audio id="track-player" controls>
+                <div class="image-wrapper">
+                    <img id="track-img" src="" alt="Обложка трека" class="player-image">
+                    <div class="player-overlay">
+                        <div class="track-info">
+                            <h3 id="track-title">Выберите трек</h3>
+                        </div>
+                        
+                        <div class="custom-player">
+                            <div class="player-controls">
+                                <button id="prev-btn" class="control-btn" title="Предыдущий трек">
+                                    <i class="control-icon">⏮</i>
+                                </button>
+                                <button id="play-btn" class="control-btn play-pause-btn" title="Воспроизвести">
+                                    <i class="control-icon play-icon">▶</i>
+                                    <i class="control-icon pause-icon">⏸</i>
+                                </button>
+                                <button id="next-btn" class="control-btn" title="Следующий трек">
+                                    <i class="control-icon">⏭</i>
+                                </button>
+                            </div>
+                            
+                            <div class="progress-container">
+                                <span id="current-time" class="time">0:00</span>
+                                <input type="range" id="progress-bar" class="progress-bar" value="0" min="0" step="any">
+                                <span id="duration" class="time">0:00</span>
+                            </div>
+                            
+                            <div class="volume-container">
+                                <i class="volume-icon">🔈</i>
+                                <input type="range" id="volume-bar" class="volume-bar" min="0" max="1" step="0.01" value="0.7">
+                                <i class="volume-icon">🔊</i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <audio id="track-player">
                     Ваш браузер не поддерживает аудио.
                 </audio>
             </div>

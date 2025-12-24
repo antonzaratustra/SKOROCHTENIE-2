@@ -2,8 +2,118 @@
 document.addEventListener('DOMContentLoaded', function() {
     initializeSnowEffect();
     initializeTrackMenu();
-    loadTrack(tracks[0]); // Загрузка первого трека по умолчанию
+    initializeCustomPlayer();
+    loadTrack(tracks[2]); // Загрузка третьего трека (Выше этого) по умолчанию
 });
+
+// Инициализация кастомного плеера
+function initializeCustomPlayer() {
+    const audioPlayer = document.getElementById('track-player');
+    const playBtn = document.getElementById('play-btn');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const progressBar = document.getElementById('progress-bar');
+    const currentTimeEl = document.getElementById('current-time');
+    const durationEl = document.getElementById('duration');
+    const volumeBar = document.getElementById('volume-bar');
+    const trackTitle = document.getElementById('track-title');
+    
+    // Обработчики кнопок
+    playBtn.addEventListener('click', togglePlay);
+    prevBtn.addEventListener('click', playPrevTrack);
+    nextBtn.addEventListener('click', playNextTrack);
+    
+    // Обработчики прогресса
+    progressBar.addEventListener('input', handleProgressBar);
+    progressBar.addEventListener('change', skipToTime);
+    
+    // Обработчик громкости
+    volumeBar.addEventListener('input', setVolume);
+    
+    // Обработчики аудио событий
+    audioPlayer.addEventListener('timeupdate', updateProgress);
+    audioPlayer.addEventListener('loadedmetadata', updateDuration);
+    audioPlayer.addEventListener('ended', playNextTrack);
+    audioPlayer.addEventListener('play', () => {
+        playBtn.classList.add('playing');
+    });
+    audioPlayer.addEventListener('pause', () => {
+        playBtn.classList.remove('playing');
+    });
+    
+    // Функция переключения воспроизведения
+    function togglePlay() {
+        if (audioPlayer.paused) {
+            audioPlayer.play();
+        } else {
+            audioPlayer.pause();
+        }
+    }
+    
+    // Функция обновления прогресса
+    function updateProgress() {
+        const percent = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+        progressBar.value = percent;
+        
+        // Обновляем время
+        currentTimeEl.textContent = formatTime(audioPlayer.currentTime);
+    }
+    
+    // Функция обновления общей длительности
+    function updateDuration() {
+        durationEl.textContent = formatTime(audioPlayer.duration);
+        progressBar.max = audioPlayer.duration || 100;
+    }
+    
+    // Функция форматирования времени
+    function formatTime(seconds) {
+        if (isNaN(seconds)) return '0:00';
+        
+        const min = Math.floor(seconds / 60);
+        const sec = Math.floor(seconds % 60);
+        return `${min}:${sec < 10 ? '0' : ''}${sec}`;
+    }
+    
+    // Функция обработки перетаскивания прогресса
+    function handleProgressBar() {
+        const percent = this.value;
+        audioPlayer.currentTime = (percent / 100) * audioPlayer.duration;
+    }
+    
+    // Функция перемотки
+    function skipToTime() {
+        const percent = this.value;
+        audioPlayer.currentTime = (percent / 100) * audioPlayer.duration;
+    }
+    
+    // Функция установки громкости
+    function setVolume() {
+        audioPlayer.volume = this.value;
+    }
+    
+    // Функция воспроизведения следующего трека
+    function playNextTrack() {
+        const currentTrackId = getCurrentTrackId();
+        const currentTrackIndex = tracks.findIndex(track => track.id === currentTrackId);
+        const nextIndex = (currentTrackIndex + 1) % tracks.length;
+        loadTrack(tracks[nextIndex]);
+        setTimeout(() => audioPlayer.play(), 100); // Небольшая задержка для надежности
+    }
+    
+    // Функция воспроизведения предыдущего трека
+    function playPrevTrack() {
+        const currentTrackId = getCurrentTrackId();
+        const currentTrackIndex = tracks.findIndex(track => track.id === currentTrackId);
+        const prevIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length;
+        loadTrack(tracks[prevIndex]);
+        setTimeout(() => audioPlayer.play(), 100); // Небольшая задержка для надежности
+    }
+    
+    // Функция получения текущего ID трека
+    function getCurrentTrackId() {
+        return audioPlayer.src.split('/').pop().split('.')[0];
+    }
+}
 
 // Функция инициализации эффекта снега
 function initializeSnowEffect() {
@@ -34,13 +144,25 @@ function initializeSnowEffect() {
 function initializeTrackMenu() {
     const trackList = document.getElementById('track-list');
     
+    // Сначала добавляем третий трек ("Выше этого") как первый в меню
+    const firstTrack = tracks[2];
+    const firstLi = document.createElement('li');
+    firstLi.textContent = firstTrack.title;
+    firstLi.setAttribute('data-text', firstTrack.title);
+    firstLi.dataset.trackId = firstTrack.id;
+    firstLi.addEventListener('click', () => loadTrack(firstTrack));
+    trackList.appendChild(firstLi);
+    
+    // Затем добавляем остальные треки
     tracks.forEach((track, index) => {
-        const li = document.createElement('li');
-        li.textContent = track.title;
-        li.setAttribute('data-text', track.title);
-        li.dataset.trackId = track.id;
-        li.addEventListener('click', () => loadTrack(track));
-        trackList.appendChild(li);
+        if (index !== 2) { // Пропускаем третий трек, так как он уже добавлен первым
+            const li = document.createElement('li');
+            li.textContent = track.title;
+            li.setAttribute('data-text', track.title);
+            li.dataset.trackId = track.id;
+            li.addEventListener('click', () => loadTrack(track));
+            trackList.appendChild(li);
+        }
     });
 }
 
@@ -55,6 +177,10 @@ function loadTrack(track) {
     const trackImg = document.getElementById('track-img');
     trackImg.src = track.imageSrc;
     trackImg.alt = track.title;
+    
+    // Обновляем название трека
+    const trackTitle = document.getElementById('track-title');
+    trackTitle.textContent = track.title;
     
     // Обновляем тексты с поддержкой Markdown
     const lyricsElement = document.getElementById('song-lyrics');
