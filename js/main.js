@@ -33,7 +33,30 @@ function initializeCustomPlayer() {
     // Обработчики аудио событий
     audioPlayer.addEventListener('timeupdate', updateProgress);
     audioPlayer.addEventListener('loadedmetadata', updateDuration);
-    audioPlayer.addEventListener('ended', playNextTrack);
+    
+    // Добавляем обработчик для начала перемотки
+    let isSeeking = false;
+    
+    progressBar.addEventListener('mousedown', function() {
+        isSeeking = true;
+    });
+    
+    progressBar.addEventListener('mouseup', function() {
+        isSeeking = false;
+    });
+    
+    progressBar.addEventListener('input', function() {
+        if (audioPlayer.duration && !isNaN(audioPlayer.duration)) {
+            audioPlayer.currentTime = this.value;
+        }
+    });
+    
+    audioPlayer.addEventListener('ended', function() {
+        // Убедимся, что трек полностью закончился
+        audioPlayer.currentTime = 0;
+        resetProgressBar();
+        playNextTrack();
+    });
     audioPlayer.addEventListener('play', () => {
         playBtn.classList.add('playing');
     });
@@ -52,17 +75,27 @@ function initializeCustomPlayer() {
     
     // Функция обновления прогресса
     function updateProgress() {
-        const percent = (audioPlayer.currentTime / audioPlayer.duration) * 100;
-        progressBar.value = percent;
-        
-        // Обновляем время
-        currentTimeEl.textContent = formatTime(audioPlayer.currentTime);
+        // Обновляем прогресс только если не идет перемотка
+        if (!isSeeking && audioPlayer.duration && !isNaN(audioPlayer.duration)) {
+            progressBar.value = audioPlayer.currentTime;
+            
+            // Обновляем время
+            currentTimeEl.textContent = formatTime(audioPlayer.currentTime);
+        }
     }
     
     // Функция обновления общей длительности
     function updateDuration() {
-        durationEl.textContent = formatTime(audioPlayer.duration);
-        progressBar.max = audioPlayer.duration || 100;
+        // Устанавливаем максимальное значение слайдера равным длительности трека
+        if (!isNaN(audioPlayer.duration)) {
+            durationEl.textContent = formatTime(audioPlayer.duration);
+            progressBar.max = audioPlayer.duration;
+            
+            // Проверяем, что currentTime не превышает duration
+            if (audioPlayer.currentTime > audioPlayer.duration && audioPlayer.duration > 0) {
+                audioPlayer.currentTime = audioPlayer.duration;
+            }
+        }
     }
     
     // Функция форматирования времени
@@ -76,14 +109,18 @@ function initializeCustomPlayer() {
     
     // Функция обработки перетаскивания прогресса
     function handleProgressBar() {
-        const percent = this.value;
-        audioPlayer.currentTime = (percent / 100) * audioPlayer.duration;
+        if (audioPlayer.duration && !isNaN(audioPlayer.duration)) {
+            // this.value здесь - это значение в секундах (т.к. max=duration), а не процент
+            audioPlayer.currentTime = this.value;
+        }
     }
     
     // Функция перемотки
     function skipToTime() {
-        const percent = this.value;
-        audioPlayer.currentTime = (percent / 100) * audioPlayer.duration;
+        if (audioPlayer.duration && !isNaN(audioPlayer.duration)) {
+            // this.value здесь - это значение в секундах (т.к. max=duration), а не процент
+            audioPlayer.currentTime = this.value;
+        }
     }
     
     // Функция установки громкости
@@ -93,9 +130,11 @@ function initializeCustomPlayer() {
     
     // Функция воспроизведения следующего трека
     function playNextTrack() {
+        // Находим индекс текущего трека в оригинальном массиве
         const currentTrackId = getCurrentTrackId();
-        const currentTrackIndex = tracks.findIndex(track => track.id === currentTrackId);
-        const nextIndex = (currentTrackIndex + 1) % tracks.length;
+        // Используем оригинальные индексы, а не отсортированные
+        const originalTrackIndex = tracks.findIndex(track => track.id === currentTrackId);
+        const nextIndex = (originalTrackIndex + 1) % tracks.length;
         loadTrack(tracks[nextIndex]);
         setTimeout(() => audioPlayer.play(), 100); // Небольшая задержка для надежности
     }
@@ -103,15 +142,20 @@ function initializeCustomPlayer() {
     // Функция воспроизведения предыдущего трека
     function playPrevTrack() {
         const currentTrackId = getCurrentTrackId();
-        const currentTrackIndex = tracks.findIndex(track => track.id === currentTrackId);
-        const prevIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length;
+        // Используем оригинальные индексы, а не отсортированные
+        const originalTrackIndex = tracks.findIndex(track => track.id === currentTrackId);
+        const prevIndex = (originalTrackIndex - 1 + tracks.length) % tracks.length;
         loadTrack(tracks[prevIndex]);
         setTimeout(() => audioPlayer.play(), 100); // Небольшая задержка для надежности
     }
     
     // Функция получения текущего ID трека
     function getCurrentTrackId() {
-        return audioPlayer.src.split('/').pop().split('.')[0];
+        // Получаем полный путь и извлекаем ID трека из имени файла
+        const src = audioPlayer.src;
+        const fileName = src.split('/').pop();
+        // Извлекаем ID из имени файла, например, 'track1.mp3' -> 'track1'
+        return fileName.replace('.mp3', '');
     }
 }
 
