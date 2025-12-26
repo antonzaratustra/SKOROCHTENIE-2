@@ -132,8 +132,8 @@ function initializeCustomPlayer() {
     
     // Функция воспроизведения следующего трека
     function playNextTrack() {
-        // Порядок треков в меню: 1) выше этого (track3), 2) поющая могилка (track1), 3) недоверия раб (track2), 4) черный челик (track4)
-        const menuOrder = ['track3', 'track1', 'track2', 'track4'];
+        // Порядок треков в меню: 1) выше этого (track3), 2) поющая могилка (track1), 3) недоверия раб (track2), 4) черный челик (track4), 5) Уточним (track5), 6) Budda on the grille (track6)
+        const menuOrder = ['track3', 'track1', 'track2', 'track4', 'track5', 'track6'];
         const currentTrackId = getCurrentTrackId();
         const currentIndex = menuOrder.indexOf(currentTrackId);
         
@@ -151,8 +151,8 @@ function initializeCustomPlayer() {
     
     // Функция воспроизведения предыдущего трека
     function playPrevTrack() {
-        // Порядок треков в меню: 1) выше этого (track3), 2) поющая могилка (track1), 3) недоверия раб (track2), 4) черный челик (track4)
-        const menuOrder = ['track3', 'track1', 'track2', 'track4'];
+        // Порядок треков в меню: 1) выше этого (track3), 2) поющая могилка (track1), 3) недоверия раб (track2), 4) черный челик (track4), 5) Уточним (track5), 6) Budda on the grille (track6)
+        const menuOrder = ['track3', 'track1', 'track2', 'track4', 'track5', 'track6'];
         const currentTrackId = getCurrentTrackId();
         const currentIndex = menuOrder.indexOf(currentTrackId);
         
