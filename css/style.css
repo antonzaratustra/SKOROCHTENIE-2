@@ -322,10 +322,11 @@ details[open] summary::after { content: '-'; }
     
     #track-list {
         flex: 1;
+        /* Убираем ограничение высоты, чтобы список мог нормально скроллиться */
     }
     
     #menu-footer {
-        padding: 10px 0;
+        padding: 2px 0; /* Минимальный отступ */
     }
     
     #menu-extra-items {
@@ -340,10 +341,10 @@ details[open] summary::after { content: '-'; }
     }
     
     .about-album-item {
-        margin-top: 5px;
-        margin-bottom: 15px;
+        margin-top: 2px; /* Минимальный отступ сверху */
+        margin-bottom: 8px; /* Минимальный нижний отступ */
         align-self: flex-start;
-        padding: 15px 20px;
+        padding: 10px 20px; /* Уменьшаем внутренние отступы */
         color: #888;
         text-transform: uppercase;
     }
@@ -390,5 +391,5 @@ details[open] summary::after { content: '-'; }
     display: flex; justify-content: center; align-items: center;
 }
 .popup-body { padding: 20px; overflow-y: auto; flex: 1; }
-.track-menu li.about-album-item { margin-top: 5px; margin-bottom: 15px; padding: 15px 20px; color: #888; text-transform: uppercase; }
+.track-menu li.about-album-item { margin-top: 2px; margin-bottom: 8px; padding: 10px 20px; color: #888; text-transform: uppercase; }
 .track-menu li.about-album-item:hover { background: rgba(255, 100, 0, 0.1); color: #fff; padding-left: 25px; border-left: 3px solid #ff6600; }
