@@ -307,28 +307,53 @@ function initializeMuzzleFlashes() {
 }
 
 function initializeTVStatic() {
+    // Create a more performant version using CSS animations
     const staticContainer = document.getElementById('tv-static');
-    const canvas = document.createElement('canvas');
-    const tam = 400;
-    canvas.width = tam; canvas.height = tam;
-    const ctx = canvas.getContext('2d');
     
-    function generateStatic() {
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
-        ctx.fillRect(0, 0, tam, tam);
-        for (let y = 0; y < tam; y += 1) {
-            for (let x = 0; x < tam; x += 1) {
-                const alpha = Math.random() < 0.3 ? 0.15 : 0.05;
-                ctx.fillStyle = `rgba(${Math.random() < 0.5 ? 0 : 255}, ${Math.random() < 0.5 ? 0 : 255}, ${Math.random() < 0.5 ? 0 : 255}, ${alpha})`;
-                ctx.fillRect(x, y, 1, 1);
-            }
-        }
-        staticContainer.style.backgroundImage = `url(${canvas.toDataURL()})`;
-        staticContainer.style.backgroundRepeat = 'repeat';
-        staticContainer.style.backgroundPosition = `${Math.floor(Math.random() * tam)}px ${Math.floor(Math.random() * tam)}px`;
-    }
-    generateStatic();
-    setInterval(generateStatic, 50);
+    // Use CSS animation instead of canvas for better performance
+    staticContainer.style.position = 'fixed';
+    staticContainer.style.top = '0';
+    staticContainer.style.left = '0';
+    staticContainer.style.width = '100%';
+    staticContainer.style.height = '100%';
+    staticContainer.style.pointerEvents = 'none';
+    staticContainer.style.zIndex = '1000';
+    staticContainer.style.opacity = '0.15';
+    
+    // Create a more visually appealing static effect using CSS
+    staticContainer.style.background = 'radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.1) 100%)';
+    staticContainer.style.animation = 'tvStaticNoise 0.05s infinite'; // Faster animation for more dynamic effect
+    staticContainer.style.opacity = '0.25'; // Increase opacity
+    
+    // Add the CSS for the animation if it doesn't exist
+    const style = document.createElement('style');
+    style.textContent = `@keyframes tvStaticNoise {\n` +
+        `    0%, 100% { \n` +
+        `        background: \n` +
+        `            radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.1) 100%),\n` +
+        `            linear-gradient(rgba(255,255,255,0.15) 0 0) 0 0 / 2px 2px;\n` +
+        `        opacity: 0.25;\n` +
+        `    }\n` +
+        `    25% { \n` +
+        `        background: \n` +
+        `            radial-gradient(circle, rgba(255,255,255,0.08) 0%, rgba(0,0,0,0.12) 100%),\n` +
+        `            linear-gradient(rgba(255,255,255,0.12) 0 0) 1px 1px / 3px 3px;\n` +
+        `        opacity: 0.22;\n` +
+        `    }\n` +
+        `    50% { \n` +
+        `        background: \n` +
+        `            radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.08) 100%),\n` +
+        `            linear-gradient(rgba(255,255,255,0.18) 0 0) 2px 2px / 4px 4px;\n` +
+        `        opacity: 0.30;\n` +
+        `    }\n` +
+        `    75% { \n` +
+        `        background: \n` +
+        `            radial-gradient(circle, rgba(255,255,255,0.12) 0%, rgba(0,0,0,0.1) 100%),\n` +
+        `            linear-gradient(rgba(255,255,255,0.1) 0 0) 0 0 / 5px 5px;\n` +
+        `        opacity: 0.27;\n` +
+        `    }\n` +
+        `}`;
+    document.head.appendChild(style);
 }
 
 function initializeTrackMenu() {
