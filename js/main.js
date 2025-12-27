@@ -27,7 +27,7 @@ function initializeMobileMenu() {
     }
 }
 
-// ПЛЕЕР
+// ПЛЕЕР-
 function initializeCustomPlayer() {
     const audioPlayer = document.getElementById('track-player');
     const playBtn = document.getElementById('play-btn');
