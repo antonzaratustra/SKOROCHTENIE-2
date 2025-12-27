@@ -377,11 +377,13 @@ function initializeTrackMenu() {
         }
     });
     
-    // Находим элемент "о чем этот альбом" из HTML и добавляем обработчик
-    const aboutAlbumLi = document.getElementById('about-album-item');
-    if (aboutAlbumLi) {
-        aboutAlbumLi.addEventListener('click', showAlbumDescription);
-    }
+    // Добавляем элемент "о чем этот альбом" в конец списка треков
+    const aboutAlbumLi = document.createElement('li');
+    aboutAlbumLi.textContent = 'о чем этот альбом';
+    aboutAlbumLi.setAttribute('data-text', 'о чем этот альбом');
+    aboutAlbumLi.classList.add('about-album-item');
+    aboutAlbumLi.addEventListener('click', showAlbumDescription);
+    trackList.appendChild(aboutAlbumLi);
 }
 
 function loadTrack(track) {
