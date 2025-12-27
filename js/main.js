@@ -474,6 +474,18 @@ function initializeTrackMenu() {
         }
     });
     
+    // Добавляем спейсер для выравнивания элемента "о чем этот альбом" внизу
+    const spacer = document.createElement('li');
+    spacer.classList.add('menu-spacer');
+    spacer.style.flex = '1';
+    trackList.appendChild(spacer);
+    
+    // Добавляем разделитель перед элементом "о чем этот альбом" для визуального отделения
+    const separator = document.createElement('div');
+    separator.classList.add('menu-separator');
+    separator.style.height = '10px';
+    trackList.appendChild(separator);
+    
     // Добавляем элемент "о чем этот альбом" в конец списка
     const aboutAlbumLi = document.createElement('li');
     aboutAlbumLi.textContent = 'о чем этот альбом';

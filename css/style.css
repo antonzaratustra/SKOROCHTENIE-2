@@ -716,17 +716,20 @@ details[open] summary::after {
 
 /* Стили для элемента "о чем этот альбом" в меню */
 .track-menu li.about-album-item {
-    color: #ff9900;
-    font-style: italic;
-    font-weight: bold;
-    text-transform: none;
-    padding: 15px 20px 15px 23px;
+    color: #888;
+    font-style: normal;
+    font-weight: normal;
+    text-transform: uppercase;
+    padding: 15px 20px;
     cursor: pointer;
     transition: all 0.2s;
+    border-left: 3px solid transparent;
+    margin-top: auto;
 }
 
 .track-menu li.about-album-item:hover {
-    background: rgba(255, 153, 0, 0.1);
-    color: #ffd700;
+    background: rgba(255, 100, 0, 0.1);
+    color: #fff;
     padding-left: 25px;
+    border-left-color: #ff6600;
 }
