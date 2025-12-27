@@ -150,6 +150,7 @@ body {
     padding: 20px 0;
     display: flex;
     flex-direction: column;
+    height: 100vh;
 }
 
 .track-menu h2 {
@@ -159,7 +160,13 @@ body {
     margin-bottom: 10px;
 }
 
-.track-menu ul { list-style: none; }
+.track-menu ul { 
+    list-style: none; 
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow-y: auto;
+}
 
 .track-menu li {
     padding: 15px 20px;
