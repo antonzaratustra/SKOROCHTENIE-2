@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <!-- Эффекты фона -->
     <div class="battle-flashes" aria-hidden="true"></div>
     <div class="snowflakes" aria-hidden="true"></div>
     <div class="muzzle-flashes" aria-hidden="true"></div>
@@ -15,8 +16,17 @@
         <div class="glitch" aria-hidden="true"></div>
     </div>
     
+    <!-- Кнопка мобильного меню -->
+    <button id="mobile-menu-btn" class="mobile-menu-btn" title="Меню треков">
+        <span>☰ ТРЕКИ</span>
+    </button>
+
     <div class="container">
-        <nav class="track-menu">
+        <nav id="track-menu" class="track-menu">
+            <div class="mobile-menu-header">
+                <h2>МЕНЮ</h2>
+                <button id="close-menu-btn" class="close-menu-btn">×</button>
+            </div>
             <ul id="track-list">
                 <!-- Треки будут добавлены через JavaScript -->
             </ul>
@@ -27,6 +37,8 @@
             <div class="player-container">
                 <div class="image-wrapper">
                     <img id="track-img" src="" alt="Обложка трека" class="player-image">
+                    
+                    <!-- Плеер находится внутри image-wrapper и прижат к низу -->
                     <div class="player-overlay">
                         <div class="track-info">
                             <h3 id="track-title">Выберите трек</h3>

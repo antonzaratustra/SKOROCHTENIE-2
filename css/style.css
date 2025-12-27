@@ -18,13 +18,10 @@ body {
     position: relative;
 }
 
-/* Эффект вспышек как будто идут бои */
+/* --- ФОНОВЫЕ ЭФФЕКТЫ (ВЕРНУЛ ВСЕ СТИЛИ) --- */
 .battle-flashes {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 0; left: 0; width: 100%; height: 100%;
     pointer-events: none;
     z-index: 0;
     opacity: 0.15;
@@ -38,23 +35,13 @@ body {
     70% { opacity: 0.15; background: radial-gradient(circle at center, rgba(255, 100, 0, 0.4), transparent 70%); }
 }
 
-/* Эффекты вспышек от автоматных очередей */
 .muzzle-flashes {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 2;
-    overflow: hidden;
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 2; overflow: hidden;
 }
 
 .muzzle-flash {
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
+    position: absolute; width: 4px; height: 4px; border-radius: 50%;
     background: #fff;
     box-shadow: 0 0 10px 2px #ff9900, 0 0 20px 5px #ff5500;
     opacity: 0;
@@ -67,72 +54,89 @@ body {
     100% { opacity: 0; transform: scale(0.5); box-shadow: 0 0 5px 1px #ff7700, 0 0 10px 3px #ff3300; }
 }
 
-/* Анимация фона как будто идут бои */
 @keyframes battleBackground {
-    0% {
-        background-position: 0% 50%;
-    }
-    25% {
-        background-position: 50% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    75% {
-        background-position: 50% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
+    0% { background-position: 0% 50%; }
+    25% { background-position: 50% 50%; }
+    50% { background-position: 100% 50%; }
+    75% { background-position: 50% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
-/* --- ФОНОВЫЕ ЭФФЕКТЫ --- */
 .snowflakes {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    pointer-events: none;
-    z-index: 1;
-    opacity: 0.3;
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 1; opacity: 0.3;
 }
 
 .snowflake {
-    position: absolute;
-    background: #fff;
-    border-radius: 50%;
-    pointer-events: none;
-    animation: snowfall linear infinite;
+    position: absolute; background: #fff; border-radius: 50%;
+    pointer-events: none; animation: snowfall linear infinite;
 }
 
 @keyframes snowfall {
-    from {
-        transform: translateY(-20vh) rotate(0deg);
-    }
-    to {
-        transform: translateY(100vh) rotate(360deg);
-    }
+    from { transform: translateY(-20vh) rotate(0deg); }
+    to { transform: translateY(100vh) rotate(360deg); }
 }
 
-/* Эффект телевизионных помех (статический шум) */
+/* Эффект шума (Static) */
 .tv-static {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1000;
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 1000; /* Высокий Z-index но pointer-events none */
     background-size: 800px 800px;
     opacity: 0.15;
 }
 
 .glitch-container {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    pointer-events: none;
-    z-index: 2;
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 2;
     background: repeating-linear-gradient(0deg, rgba(0,0,0,0.1), rgba(0,0,0,0.1) 1px, transparent 1px, transparent 2px);
     background-size: 100% 4px;
 }
+
+/* --- МОБИЛЬНОЕ МЕНЮ И КНОПКА --- */
+.mobile-menu-btn {
+    display: none; /* Скрыто на ПК */
+    position: fixed;
+    top: 20px;
+    left: 20px; /* Отступ от края есть */
+    z-index: 3000; /* Выше всего */
+    background: rgba(10, 10, 10, 0.9);
+    border: 1px solid #ff0000;
+    color: #ff0000;
+    padding: 10px 15px;
+    font-family: inherit;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+    transition: all 0.3s;
+}
+
+.mobile-menu-btn:hover {
+    background: #ff0000;
+    color: white;
+}
+
+.mobile-menu-header {
+    display: none;
+    padding: 20px;
+    border-bottom: 1px solid #333;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(10, 10, 10, 0.95);
+}
+
+.mobile-menu-header h2 { color: #ff0000; margin: 0; }
+.close-menu-btn { background: none; border: none; color: #ff0000; font-size: 2rem; cursor: pointer; }
+
+/* ОВЕРЛЕЙ (ЗАТЕМНЕНИЕ) - Z-INDEX 2000 */
+.menu-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 2000; 
+    opacity: 0; pointer-events: none; transition: opacity 0.3s;
+    backdrop-filter: blur(2px);
+}
+.menu-overlay.active { opacity: 1; pointer-events: auto; }
 
 /* --- ЛЕЙАУТ --- */
 .container {
@@ -148,595 +152,207 @@ body {
     background: rgba(10, 10, 10, 0.95);
     border-right: 1px solid #333;
     padding: 20px 0;
-    display: flex;
-    flex-direction: column;
+    display: flex; flex-direction: column;
     height: 100vh;
+    position: sticky; top: 0;
 }
 
-.track-menu h2 {
-    padding: 0 20px 20px;
-    color: #ff0000;
-    border-bottom: 1px solid #333;
-    margin-bottom: 10px;
-}
-
-.track-menu ul { 
-    list-style: none; 
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    overflow-y: auto;
-}
-
+.track-menu h2 { padding: 0 20px 20px; color: #ff0000; border-bottom: 1px solid #333; margin-bottom: 10px; }
+.track-menu ul { list-style: none; display: flex; flex-direction: column; flex: 1; overflow-y: auto; }
 .track-menu li {
-    padding: 15px 20px;
-    cursor: pointer;
-    border-left: 3px solid transparent;
-    transition: all 0.2s;
-    color: #888;
-    text-transform: uppercase;
+    padding: 15px 20px; cursor: pointer; border-left: 3px solid transparent;
+    transition: all 0.2s; color: #888; text-transform: uppercase;
 }
-
-.track-menu li:hover {
-    background: rgba(255, 0, 0, 0.1);
-    color: #fff;
-    padding-left: 25px;
-}
-
+.track-menu li:hover { background: rgba(255, 0, 0, 0.1); color: #fff; padding-left: 25px; }
 .track-menu li.active {
     background: linear-gradient(90deg, rgba(255,0,0,0.2), transparent);
-    color: #ff0000;
-    border-left-color: #ff0000;
+    color: #ff0000; border-left-color: #ff0000;
     text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
 }
 
 /* Контент */
 .track-content {
-    flex: 1;
-    padding: 30px;
-    max-width: 900px;
-    margin: 0 auto;
+    flex: 1; padding: 30px; max-width: 900px; margin: 0 auto; width: 100%;
 }
 
-/* --- АЛЬБОМ НАЗВАНИЕ --- */
 .album-title {
-    color: white;
-    font-size: 2.5rem;
-    text-align: center;
-    margin: 20px 0 30px;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    color: white; font-size: 2.5rem; text-align: center;
+    margin: 20px 0 30px; text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
-/* --- ПЛЕЕР (КАСТОМНЫЙ) --- */
+/* --- ПЛЕЕР --- */
 .player-container {
     background: #0a0a0a;
     border: 1px solid #333;
-    padding: 20px;
+    padding: 0; /* Без паддинга, картинка на всю ширину */
     margin-bottom: 30px;
     position: relative;
     box-shadow: 0 0 30px rgba(0,0,0,0.8);
     max-width: 600px;
     width: 100%;
-    aspect-ratio: 1/1;
-    margin-left: auto;
-    margin-right: auto;
+    aspect-ratio: 1/1; /* Квадрат */
+    margin-left: auto; margin-right: auto;
+    overflow: hidden;
 }
 
-/* Красная рамка (свечение) */
 .player-container::before {
-    content: '';
-    position: absolute;
-    top: -1px; left: -1px; right: -1px; bottom: -1px;
+    content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
     background: linear-gradient(45deg, #ff0000, transparent, #ff0000);
-    z-index: -1;
-    opacity: 0.2;
+    z-index: 1; opacity: 0.2; pointer-events: none;
 }
 
 .image-wrapper {
     position: relative;
     width: 100%;
     height: 100%;
-    margin: 0;
-    aspect-ratio: 1/1;
 }
 
 .player-image {
-    width: 100%;
-    height: 100%;
-    display: block;
-    filter: grayscale(80%) contrast(1.2);
-    transition: filter 0.3s;
-    object-fit: cover;
+    width: 100%; height: 100%; display: block; object-fit: cover;
+    filter: grayscale(80%) contrast(1.2); transition: filter 0.3s;
 }
 
+.player-container:hover .player-image { filter: grayscale(0%) contrast(1); }
+
+/* ПЛЕЕР OVERLAY (ВЕРНУЛ ПРОЗРАЧНОСТЬ 0.7) */
 .player-overlay {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: rgba(10, 10, 10, 0.7);
+    bottom: 0; left: 0; width: 100%;
+    background: rgba(10, 10, 10, 0.7); /* Вернул как было */
     padding: 10px;
     border-top: 1px solid #ff0000;
+    z-index: 5;
 }
 
-.player-container:hover .player-image {
-    filter: grayscale(0%) contrast(1);
-}
+.track-info { text-align: center; margin-bottom: 10px; position: relative; z-index: 1; }
+.track-info h3 { color: #ff0000; font-size: 1.5rem; text-shadow: 0 0 5px rgba(255,0,0,0.5); margin: 0; padding: 10px 0; }
 
-/* Убираем img-wrapper, так как он не используется в новом дизайне */
-/* .img-wrapper {
-    width: 100%;
-    max-width: 400px;
-    margin: 0 auto 20px;
-    position: relative;
-    border: 1px solid #333;
-} */
-
-/* Old player image class - commented out as it's not used in new design */
-/* .player-image {
-    width: 100%;
-    height: auto;
-    display: block;
-    filter: grayscale(80%) contrast(1.2);
-    transition: filter 0.3s;
-    max-width: 300px;
-    margin: 0 auto;
-}
-
-.player-container:hover .player-image {
-    filter: grayscale(0%) contrast(1);
-} */
-
-/* Текстовая информация в плеере */
-.track-info {
-    text-align: center;
-    margin-bottom: 10px;
-    position: relative;
-    z-index: 1;
-}
-
-.track-info h3 {
-    color: #ff0000;
-    font-size: 1.5rem;
-    text-shadow: 0 0 5px rgba(255,0,0,0.5);
-    margin: 0;
-    padding: 10px 0;
-}
-
-/* Стили кастомного плеера */
 .custom-player {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding: 8px;
-    background: rgba(30, 30, 30, 0.6);
-    border-radius: 8px;
-    border: 1px solid #333;
-    position: relative;
-    z-index: 1;
+    display: flex; flex-direction: column; gap: 8px; padding: 8px;
+    background: rgba(30, 30, 30, 0.6); border-radius: 8px; border: 1px solid #333;
+    position: relative; z-index: 1;
 }
 
-.player-controls {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    margin-bottom: 5px;
-}
-
+.player-controls { display: flex; justify-content: center; align-items: center; gap: 20px; margin-bottom: 5px; }
 .control-btn {
-    background: rgba(50, 50, 50, 0.8);
-    border: 1px solid #444;
-    color: #ddd;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    font-size: 14px;
-    position: relative;
+    background: rgba(50, 50, 50, 0.8); border: 1px solid #444; color: #ddd;
+    width: 35px; height: 35px; border-radius: 50%; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;
+    font-size: 14px; position: relative;
 }
-
 .control-btn:hover {
-    background: #ff0000;
-    color: white;
-    border-color: #ff3333;
-    transform: scale(1.1);
-    box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+    background: #ff0000; color: white; border-color: #ff3333;
+    transform: scale(1.1); box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
 }
+.play-pause-btn { width: 40px; height: 40px; font-size: 18px; }
+.control-icon { display: inline-block; }
+.pause-icon { display: none; }
+.play-pause-btn.playing .pause-icon { display: inline-block; }
+.play-pause-btn.playing .play-icon { display: none; }
 
-.control-btn:active {
-    transform: scale(0.95);
-}
-
-.play-pause-btn {
-    width: 40px;
-    height: 40px;
-    font-size: 18px;
-}
-
-.control-icon {
-    display: inline-block;
-}
-
-.pause-icon {
-    display: none;
-}
-
-.play-pause-btn.playing .pause-icon {
-    display: inline-block;
-}
-
-.play-pause-btn.playing .play-icon {
-    display: none;
-}
-
-/* Контейнер прогресса */
-.progress-container {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 0 5px;
-}
-
-.time {
-    color: #aaa;
-    font-size: 0.7rem;
-    min-width: 35px;
-    text-align: center;
-}
-
+.progress-container { display: flex; align-items: center; gap: 6px; padding: 0 5px; }
+.time { color: #aaa; font-size: 0.7rem; min-width: 35px; text-align: center; }
 .progress-bar {
-    flex: 1;
-    height: 4px;
-    -webkit-appearance: none;
-    background: #333;
-    border-radius: 2px;
-    outline: none;
-    cursor: pointer;
+    flex: 1; height: 4px; -webkit-appearance: none; background: #333;
+    border-radius: 2px; cursor: pointer;
 }
-
 .progress-bar::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: #ff0000;
-    cursor: pointer;
-    transition: all 0.2s;
-    box-shadow: 0 0 5px rgba(255, 0, 0, 0.8);
+    -webkit-appearance: none; width: 10px; height: 10px; border-radius: 50%;
+    background: #ff0000; cursor: pointer; transition: all 0.2s; box-shadow: 0 0 5px rgba(255, 0, 0, 0.8);
 }
-
-.progress-bar::-webkit-slider-thumb:hover {
-    background: #ff3333;
-    transform: scale(1.2);
-    box-shadow: 0 0 10px rgba(255, 0, 0, 1);
-}
-
-.progress-bar::-moz-range-thumb {
-    width: 10px;
-    height: 10px;
-    border: none;
-    border-radius: 50%;
-    background: #ff0000;
-    cursor: pointer;
-    transition: all 0.2s;
-    box-shadow: 0 0 5px rgba(255, 0, 0, 0.8);
-}
-
-.progress-bar::-moz-range-thumb:hover {
-    background: #ff3333;
-    box-shadow: 0 0 10px rgba(255, 0, 0, 1);
-}
-
-/* Контейнер громкости */
-.volume-container {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 0 10px;
-}
-
-.volume-icon {
-    color: #888;
-    font-size: 0.7rem;
-}
-
+.volume-container { display: flex; align-items: center; gap: 6px; padding: 0 10px; }
+.volume-icon { color: #888; font-size: 0.7rem; }
 .volume-bar {
-    flex: 1;
-    height: 4px;
-    -webkit-appearance: none;
-    background: #333;
-    border-radius: 2px;
-    outline: none;
-    cursor: pointer;
+    flex: 1; height: 4px; -webkit-appearance: none; background: #333;
+    border-radius: 2px; cursor: pointer;
 }
-
 .volume-bar::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: #ff6600;
-    cursor: pointer;
-    transition: all 0.2s;
-    box-shadow: 0 0 5px rgba(255, 102, 0, 0.8);
+    -webkit-appearance: none; width: 10px; height: 10px; border-radius: 50%;
+    background: #ff6600; cursor: pointer; transition: all 0.2s;
 }
 
-.volume-bar::-webkit-slider-thumb:hover {
-    background: #ff8833;
-    transform: scale(1.2);
-    box-shadow: 0 0 8px rgba(255, 102, 0, 1);
-}
-
-.volume-bar::-moz-range-thumb {
-    width: 10px;
-    height: 10px;
-    border: none;
-    border-radius: 50%;
-    background: #ff6600;
-    cursor: pointer;
-    transition: all 0.2s;
-    box-shadow: 0 0 5px rgba(255, 102, 0, 0.8);
-}
-
-.volume-bar::-moz-range-thumb:hover {
-    background: #ff8833;
-    box-shadow: 0 0 8px rgba(255, 102, 0, 1);
-}
-
-/* Стили для старого класса, чтобы избежать конфликта */
-.custom-controls {
-    display: none; /* Скрыто, так как используем новый дизайн */
-}
-
-/* --- ТЕКСТЫ И АККОРДЕОН --- */
+/* --- ТЕКСТЫ --- */
 .track-texts {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
+    display: flex; flex-direction: column; gap: 20px;
+    width: 100%; max-width: 600px; margin: 0 auto;
 }
 
-details {
-    background: rgba(20, 20, 20, 0.6);
-    border: 1px solid #333;
-    transition: all 0.3s;
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-details[open] {
-    border-color: #ff0000;
-    box-shadow: 0 0 15px rgba(255, 0, 0, 0.1);
-}
-
+details { background: rgba(20, 20, 20, 0.6); border: 1px solid #333; width: 100%; max-width: 600px; margin: 0 auto; transition: all 0.3s; }
+details[open] { border-color: #ff0000; box-shadow: 0 0 15px rgba(255, 0, 0, 0.1); }
 summary {
-    padding: 15px;
-    cursor: pointer;
-    font-weight: bold;
-    color: #fff;
-    list-style: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-left: 3px solid transparent;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    padding: 15px; cursor: pointer; font-weight: bold; color: #fff;
+    display: flex; justify-content: space-between; align-items: center;
 }
+summary:hover { background: rgba(255,255,255,0.05); }
+summary::after { content: '+'; color: #ff0000; font-size: 1.2rem; }
+details[open] summary { border-bottom: 1px solid #333; color: #ff0000; border-left: 3px solid #ff0000; }
+details[open] summary::after { content: '-'; }
 
-summary:hover {
-    background: rgba(255,255,255,0.05);
+.markdown-content, #song-lyrics, #song-decoding {
+    padding: 25px 25px 25px 40px; line-height: 1.6; color: #ccc;
+    font-size: 0.95rem; white-space: pre-wrap; overflow-wrap: break-word; word-wrap: break-word;
 }
-
-summary::after {
-    content: '+';
-    color: #ff0000;
-    font-size: 1.2rem;
-}
-
-details[open] summary {
-    border-bottom: 1px solid #333;
-    color: #ff0000;
-    border-left: 3px solid #ff0000;
-}
-
-details[open] summary::after {
-    content: '-';
-}
-
-.markdown-content {
-    padding: 25px;
-    line-height: 1.6;
-    color: #ccc;
-    font-size: 0.95rem;
-    white-space: pre-wrap;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    text-align: left;
-}
-
-#song-lyrics, #song-decoding {
-    padding: 25px 25px 25px 40px;
-    line-height: 1.6;
-    color: #ccc;
-    font-size: 0.95rem;
-    white-space: pre-wrap;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    text-align: left;
-}
-
-/* Стили для Markdown заголовков внутри текста */
-.markdown-content h1, .markdown-content h2, .markdown-content h3 {
-    color: #ff0000;
-    margin-top: 20px;
-    margin-bottom: 10px;
-    border-bottom: 1px dashed #333;
-    display: inline-block;
-}
-
-.markdown-content blockquote {
-    border-left: 3px solid #ff0000;
-    padding-left: 15px;
-    margin: 15px 0;
-    color: #888;
-    font-style: italic;
-}
+.markdown-content h1, .markdown-content h2 { color: #ff0000; margin: 20px 0 10px; border-bottom: 1px dashed #333; }
+.markdown-content blockquote { border-left: 3px solid #ff0000; padding-left: 15px; margin: 15px 0; color: #888; font-style: italic; }
 
 /* --- АДАПТИВ --- */
 @media (max-width: 768px) {
-    .container { flex-direction: column; }
-    .track-menu { width: 100%; height: auto; max-height: 250px; overflow-y: auto; }
-    .track-content { padding: 15px; }
+    .container { display: block; }
+    .mobile-menu-btn { display: block; }
+    .mobile-menu-header { display: flex; }
+
+    /* ВАЖНО: Z-INDEX 2001 (ВЫШЕ ОВЕРЛЕЯ) */
+    .track-menu { 
+        width: 80%; max-width: 300px; height: 100vh;
+        position: fixed; top: 0; left: -100%;
+        z-index: 2001; /* Меню ВЫШЕ затемнения */
+        transition: left 0.3s ease-in-out;
+        border-right: 2px solid #ff0000; padding: 0;
+        box-shadow: 10px 0 30px rgba(0,0,0,0.5);
+    }
+    .track-menu.menu-open { left: 0; }
+    
+    .track-content { padding: 80px 15px 30px; width: 100%; }
+    
+    /* Плеер */
+    .player-container {
+        aspect-ratio: auto; /* Сбрасываем жесткий квадрат контейнера чтобы не ломался */
+        width: 100%; max-width: 400px;
+        height: auto;
+    }
+    .image-wrapper {
+        aspect-ratio: 1/1; /* Картинка квадратная */
+        width: 100%;
+    }
+    .player-overlay {
+        position: absolute; /* Наезжает на картинку снизу */
+        bottom: 0; left: 0; right: 0;
+        background: rgba(10, 10, 10, 0.7);
+        border-top: 1px solid #ff0000;
+    }
 }
 
-/* Стили для всплывающего окна описания альбома */
+/* POPUP */
 .album-description-popup {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: rgba(0, 0, 0, 0.8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
+    display: flex; justify-content: center; align-items: center; z-index: 9999;
 }
-
 .popup-content {
-    background: #0a0a0a;
-    border: 1px solid #333;
-    border-radius: 8px;
-    width: 90%;
-    max-width: 800px;
-    max-height: 90vh;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
-    overflow: hidden;
+    background: #0a0a0a; border: 1px solid #333; border-radius: 8px;
+    width: 90%; max-width: 800px; max-height: 90vh; display: flex; flex-direction: column;
+    box-shadow: 0 0 30px rgba(255, 0, 0, 0.5); overflow: hidden;
 }
-
 .popup-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    border-bottom: 1px solid #333;
-    background: rgba(20, 20, 20, 0.9);
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px; border-bottom: 1px solid #333; background: rgba(20, 20, 20, 0.9);
 }
-
-.popup-header h2 {
-    color: #ff0000;
-    margin: 0;
-    font-size: 1.5rem;
-}
-
+.popup-header h2 { color: #ff0000; margin: 0; font-size: 1.5rem; }
 .close-btn {
-    background: transparent;
-    border: none;
-    color: #ff0000;
-    font-size: 2rem;
-    cursor: pointer;
-    padding: 0;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.3s;
+    background: transparent; border: none; color: #ff0000; font-size: 2rem;
+    cursor: pointer; padding: 0; width: 30px; height: 30px;
+    display: flex; justify-content: center; align-items: center;
 }
-
-.close-btn:hover {
-    color: #ff3333;
-    transform: scale(1.1);
-}
-
-.popup-body {
-    padding: 20px;
-    overflow-y: auto;
-    flex: 1;
-}
-
-.popup-body .markdown-content {
-    line-height: 1.6;
-    color: #ccc;
-    font-size: 0.95rem;
-    white-space: pre-wrap;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    text-align: left;
-}
-
-/* Стили для markdown заголовков в popup */
-.popup-body .markdown-content h1, 
-.popup-body .markdown-content h2 {
-    color: #ff0000;
-    margin-top: 20px;
-    margin-bottom: 10px;
-    border-bottom: 1px dashed #333;
-    display: block;
-}
-
-.popup-body .markdown-content h3 {
-    color: #ff0000;
-    margin-top: 15px;
-    margin-bottom: 8px;
-}
-
-.popup-body .markdown-content p {
-    margin-bottom: 10px;
-}
-
-.popup-body .markdown-content ul,
-.popup-body .markdown-content ol {
-    padding-left: 20px;
-    margin-bottom: 10px;
-}
-
-.popup-body .markdown-content li {
-    margin-bottom: 5px;
-}
-
-.popup-body .markdown-content blockquote {
-    border-left: 3px solid #ff0000;
-    padding-left: 15px;
-    margin: 15px 0;
-    color: #888;
-    font-style: italic;
-}
-
-.popup-body .markdown-content hr {
-    border: none;
-    height: 1px;
-    background: #333;
-    margin: 20px 0;
-}
-
-/* Стили для элемента "о чем этот альбом" в меню */
-.track-menu li.about-album-item {
-    color: #888;
-    font-style: normal;
-    font-weight: normal;
-    text-transform: uppercase;
-    padding: 15px 20px;
-    cursor: pointer;
-    transition: all 0.2s;
-    border-left: 3px solid transparent;
-    margin-top: auto;
-}
-
-.track-menu li.about-album-item:hover {
-    background: rgba(255, 100, 0, 0.1);
-    color: #fff;
-    padding-left: 25px;
-    border-left-color: #ff6600;
-}
+.popup-body { padding: 20px; overflow-y: auto; flex: 1; }
+.track-menu li.about-album-item { margin-top: auto; padding: 15px 20px; color: #888; text-transform: uppercase; }
+.track-menu li.about-album-item:hover { background: rgba(255, 100, 0, 0.1); color: #fff; padding-left: 25px; border-left: 3px solid #ff6600; }
