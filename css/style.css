@@ -590,3 +590,143 @@ details[open] summary::after {
     .track-menu { width: 100%; height: auto; max-height: 250px; overflow-y: auto; }
     .track-content { padding: 15px; }
 }
+
+/* Стили для всплывающего окна описания альбома */
+.album-description-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.popup-content {
+    background: #0a0a0a;
+    border: 1px solid #333;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+    overflow: hidden;
+}
+
+.popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #333;
+    background: rgba(20, 20, 20, 0.9);
+}
+
+.popup-header h2 {
+    color: #ff0000;
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.close-btn {
+    background: transparent;
+    border: none;
+    color: #ff0000;
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s;
+}
+
+.close-btn:hover {
+    color: #ff3333;
+    transform: scale(1.1);
+}
+
+.popup-body {
+    padding: 20px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.popup-body .markdown-content {
+    line-height: 1.6;
+    color: #ccc;
+    font-size: 0.95rem;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    text-align: left;
+}
+
+/* Стили для markdown заголовков в popup */
+.popup-body .markdown-content h1, 
+.popup-body .markdown-content h2 {
+    color: #ff0000;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border-bottom: 1px dashed #333;
+    display: block;
+}
+
+.popup-body .markdown-content h3 {
+    color: #ff0000;
+    margin-top: 15px;
+    margin-bottom: 8px;
+}
+
+.popup-body .markdown-content p {
+    margin-bottom: 10px;
+}
+
+.popup-body .markdown-content ul,
+.popup-body .markdown-content ol {
+    padding-left: 20px;
+    margin-bottom: 10px;
+}
+
+.popup-body .markdown-content li {
+    margin-bottom: 5px;
+}
+
+.popup-body .markdown-content blockquote {
+    border-left: 3px solid #ff0000;
+    padding-left: 15px;
+    margin: 15px 0;
+    color: #888;
+    font-style: italic;
+}
+
+.popup-body .markdown-content hr {
+    border: none;
+    height: 1px;
+    background: #333;
+    margin: 20px 0;
+}
+
+/* Стили для элемента "о чем этот альбом" в меню */
+.track-menu li.about-album-item {
+    color: #ff9900;
+    font-style: italic;
+    font-weight: bold;
+    text-transform: none;
+    padding: 15px 20px 15px 23px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.track-menu li.about-album-item:hover {
+    background: rgba(255, 153, 0, 0.1);
+    color: #ffd700;
+    padding-left: 25px;
+}
