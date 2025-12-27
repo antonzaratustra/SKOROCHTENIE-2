@@ -315,28 +315,37 @@ details[open] summary::after { content: '-'; }
     .track-menu.menu-open { left: 0; }
     
     .track-menu ul {
-        flex: 1;
         overflow-y: auto;
         display: flex;
         flex-direction: column;
     }
     
-    .menu-spacer {
-        flex: 0; /* Не занимаем всё оставшееся пространство */
-        flex-grow: 1;
-        flex-shrink: 1;
-        flex-basis: auto;
-        max-height: 40%; /* Ограничиваем высоту спейсера */
+    #track-list {
+        flex: 1;
     }
     
-    .menu-separator {
-        height: 15px; /* Уменьшаем высоту разделителя */
+    #menu-footer {
+        padding: 10px 0;
+    }
+    
+    #menu-extra-items {
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .menu-spacer, .menu-separator {
+        display: none; /* Убираем старые элементы, так как теперь используем новую структуру */
     }
     
     .about-album-item {
-        margin-top: 5px; /* Уменьшаем отступ сверху */
-        margin-bottom: 20px;
+        margin-top: 5px;
+        margin-bottom: 15px;
         align-self: flex-start;
+        padding: 15px 20px;
+        color: #888;
+        text-transform: uppercase;
     }
     
     .track-content { padding: 80px 15px 30px; width: 100%; }
@@ -381,5 +390,5 @@ details[open] summary::after { content: '-'; }
     display: flex; justify-content: center; align-items: center;
 }
 .popup-body { padding: 20px; overflow-y: auto; flex: 1; }
-.track-menu li.about-album-item { margin-top: 10px; margin-bottom: 20px; padding: 15px 20px; color: #888; text-transform: uppercase; }
+.track-menu li.about-album-item { margin-top: 5px; margin-bottom: 15px; padding: 15px 20px; color: #888; text-transform: uppercase; }
 .track-menu li.about-album-item:hover { background: rgba(255, 100, 0, 0.1); color: #fff; padding-left: 25px; border-left: 3px solid #ff6600; }

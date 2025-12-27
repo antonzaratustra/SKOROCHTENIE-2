@@ -377,22 +377,11 @@ function initializeTrackMenu() {
         }
     });
     
-    const spacer = document.createElement('li');
-    spacer.classList.add('menu-spacer');
-    spacer.style.flex = '1';
-    trackList.appendChild(spacer);
-    
-    const separator = document.createElement('div');
-    separator.classList.add('menu-separator');
-    separator.style.height = '10px';
-    trackList.appendChild(separator);
-    
-    const aboutAlbumLi = document.createElement('li');
-    aboutAlbumLi.textContent = 'о чем этот альбом';
-    aboutAlbumLi.setAttribute('data-text', 'о чем этот альбом');
-    aboutAlbumLi.classList.add('about-album-item');
-    aboutAlbumLi.addEventListener('click', showAlbumDescription);
-    trackList.appendChild(aboutAlbumLi);
+    // Находим элемент "о чем этот альбом" из HTML и добавляем обработчик
+    const aboutAlbumLi = document.getElementById('about-album-item');
+    if (aboutAlbumLi) {
+        aboutAlbumLi.addEventListener('click', showAlbumDescription);
+    }
 }
 
 function loadTrack(track) {
