@@ -90,7 +90,7 @@ function initializeCustomPlayer() {
     }
     
     function playNextTrack() {
-        const menuOrder = ['track3', 'track1', 'track2', 'track4', 'track5', 'track6', 'track7'];
+        const menuOrder = ['track3', 'track1', 'track2', 'track4', 'track5', 'track6', 'track7', 'track8'];
         const currentId = getCurrentTrackId();
         const idx = menuOrder.indexOf(currentId);
         if (idx !== -1) {
@@ -101,7 +101,7 @@ function initializeCustomPlayer() {
     }
     
     function playPrevTrack() {
-        const menuOrder = ['track3', 'track1', 'track2', 'track4', 'track5', 'track6', 'track7'];
+        const menuOrder = ['track3', 'track1', 'track2', 'track4', 'track5', 'track6', 'track7', 'track8'];
         const currentId = getCurrentTrackId();
         const idx = menuOrder.indexOf(currentId);
         if (idx !== -1) {
